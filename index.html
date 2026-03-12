@@ -259,14 +259,15 @@
         }
 
         @media (max-width: 640px) {
-            .hero { padding: 1.5rem 1rem; min-height: auto; padding-top: 3rem; padding-bottom: 2rem; overflow: visible; }
+            .hero { padding: 1.5rem 1rem; min-height: auto; padding-top: 3rem; padding-bottom: 2rem; }
+            .hero-content { padding: 0; }
             .hero-name { font-size: 2.25rem; }
             .hero-title { font-size: 1rem; }
-            .hero-summary { font-size: 0.9rem; max-width: 100%; }
+            .hero-summary { font-size: 0.88rem; max-width: 100%; line-height: 1.7; }
             .section { padding: 2.5rem 1rem; }
             .section-header { margin-bottom: 2rem; }
             .section-title { font-size: 1.75rem; }
-            .section-subtitle { font-size: 0.95rem; }
+            .section-subtitle { font-size: 0.9rem; }
             .skills-grid { grid-template-columns: 1fr; }
             .projects-grid { grid-template-columns: 1fr; }
             .hero-stats { gap: 1rem; flex-wrap: wrap; justify-content: center; }
@@ -284,8 +285,10 @@
             .timeline-card { padding: 1.25rem; }
             .timeline-role { font-size: 1.05rem; }
             .hero-card-inner { padding: 1.5rem; }
-            .contact-item { padding: 0.5rem 0.75rem; }
-            .contact-value { font-size: 0.82rem; }
+            .contact-item { padding: 0.5rem 0.75rem; flex-direction: column; text-align: center; gap: 0.5rem; }
+            .contact-item:hover { transform: none; }
+            .contact-icon { margin: 0 auto; }
+            .contact-value { font-size: 0.82rem; white-space: normal; }
             .lang-card { padding: 1.5rem 2rem; min-width: 160px; }
             .languages-grid { gap: 1rem; }
             .footer { padding: 2rem 1rem; }

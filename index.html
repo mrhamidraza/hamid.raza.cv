@@ -64,6 +64,9 @@
         .nav-cta { background: var(--gradient-1); color: white !important; padding: 0.5rem 1.25rem !important; border-radius: 8px !important; font-weight: 600 !important; font-size: 0.8rem !important; }
         .nav-cta:hover { opacity: 0.9; background: var(--gradient-1) !important; color: white !important; transform: translateY(-1px); }
 
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; flex-direction: column; gap: 5px; }
+        .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: var(--transition); }
+
         /* HERO */
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }
         .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%); animation: float 20s ease-in-out infinite; }
@@ -235,7 +238,20 @@
             .hero-card { max-width: 400px; margin: 0 auto; }
             .section-header { margin-bottom: 2.5rem; }
 
-            .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 1rem;
+                border-bottom: 1px solid var(--light-3);
+                box-shadow: var(--shadow-md);
+            }
+            .nav-links.open { display: flex; }
         }
 
         @media (max-width: 1080px) {
@@ -243,7 +259,7 @@
         }
 
         @media (max-width: 640px) {
-            .hero { padding: 1.5rem 1rem; min-height: auto; padding-top: 3rem; padding-bottom: 2rem; }
+            .hero { padding: 1.5rem 1rem; min-height: auto; padding-top: 3rem; padding-bottom: 2rem; overflow: visible; }
             .hero-name { font-size: 2.25rem; }
             .hero-title { font-size: 1rem; }
             .hero-summary { font-size: 0.9rem; max-width: 100%; }
@@ -308,6 +324,8 @@
         body.dark .footer { background: #020617; }
         body.dark .timeline-dot { background: #1e293b; }
         body.dark .bg-pattern { opacity: 0.15; }
+        body.dark .nav-toggle span { background: var(--dark); }
+        body.dark .nav-links.open { background: #1e293b; }
     </style>
 </head>
 <body>
@@ -317,6 +335,9 @@
     <nav class="nav" id="nav">
         <div class="nav-inner">
             <div class="nav-brand">Hamid<span> </span>Raza</div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -696,6 +717,16 @@
         const counters=document.querySelectorAll('[data-count]');const co=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=parseInt(el.dataset.count);let c=0;const inc=t/40;const timer=setInterval(()=>{c+=inc;if(c>=t){el.textContent=t+'+';clearInterval(timer)}else{el.textContent=Math.ceil(c)+'+'}},40);co.unobserve(el)}})},{threshold:0.5});counters.forEach(el=>co.observe(el));
         const tt=document.getElementById('themeToggle'),si=tt.querySelector('.sun-icon'),mi=tt.querySelector('.moon-icon');tt.addEventListener('click',()=>{document.body.classList.toggle('dark');const d=document.body.classList.contains('dark');si.style.display=d?'none':'block';mi.style.display=d?'block':'none'});
         const secs=document.querySelectorAll('section[id]');window.addEventListener('scroll',()=>{const sy=window.scrollY+100;secs.forEach(s=>{const t=s.offsetTop,h=s.offsetHeight,id=s.getAttribute('id'),l=document.querySelector(`.nav-links a[href="#${id}"]`);if(l){if(sy>=t&&sy<t+h){document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));l.classList.add('active')}}})});
+        // Mobile Nav Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+        // Close nav when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
     </script>
 </body>
 </html>

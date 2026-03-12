@@ -713,7 +713,7 @@
     </button>
 
     <script>
-        const nav=document.getElementById('nav');let lastScroll=0;window.addEventListener('scroll',()=>{const cur=window.scrollY;if(cur<=100){nav.classList.remove('visible')}else if(cur<lastScroll){nav.classList.add('visible')}else{nav.classList.remove('visible')}lastScroll=cur});
+        const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('visible',window.scrollY>100)});
         const btt=document.getElementById('backToTop');window.addEventListener('scroll',()=>{btt.classList.toggle('visible',window.scrollY>500)});
         const reveals=document.querySelectorAll('.reveal');
         if('IntersectionObserver' in window){reveals.forEach(el=>el.classList.add('animate'));const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target)}})},{threshold:0.05,rootMargin:'0px 0px 0px 0px'});reveals.forEach(el=>ro.observe(el));setTimeout(()=>{reveals.forEach(el=>el.classList.add('visible'))},1500)}
